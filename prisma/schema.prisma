@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role { STUDENT ADMIN PARTNER }
+enum PaymentStatus { PENDING VERIFIED FAILED REFUNDED }
+enum InternshipStatus { NOT_STARTED IN_PROGRESS COMPLETED REVOKED }
+enum CertificateStatus { DRAFT ISSUED REVOKED }
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String   @unique
+  password  String
+  role      Role     @default(STUDENT)
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  profile   StudentProfile?
+  payments  Payment[]
+  registrations InternshipRegistration[]
+  orders    Order[]
+  certificates Certificate[]
+}
+
+model StudentProfile {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gender String?
+  college String?
+  university String?
+  degree String?
+  course String?
+  semester String?
+  session String?
+  domain String?
+  emergencyName String?
+  emergencyPhone String?
+  address String?
+}
+
+model University { id String @id @default(cuid()); name String @unique; logoUrl String?; description String?; active Boolean @default(true); programmes Programme[] }
+model Programme { id String @id @default(cuid()); name String; stream String; durationHours Int @default(120); fee Int @default(500); active Boolean @default(true); universityId String?; university University? @relation(fields:[universityId],references:[id]); domains Domain[]; registrations InternshipRegistration[] }
+model Domain { id String @id @default(cuid()); name String; description String?; programmeId String; programme Programme @relation(fields:[programmeId],references:[id],onDelete:Cascade) }
+model InternshipRegistration { id String @id @default(cuid()); userId String; programmeId String; status InternshipStatus @default(NOT_STARTED); createdAt DateTime @default(now()); user User @relation(fields:[userId],references:[id]); programme Programme @relation(fields:[programmeId],references:[id]); payments Payment[] }
+model Payment { id String @id @default(cuid()); userId String; registrationId String?; provider String @default("MOCK"); providerOrderId String?; providerPaymentId String?; amount Int; currency String @default("INR"); status PaymentStatus @default(PENDING); createdAt DateTime @default(now()); user User @relation(fields:[userId],references:[id]); registration InternshipRegistration? @relation(fields:[registrationId],references:[id]) }
+model Document { id String @id @default(cuid()); title String; type String; fileUrl String; active Boolean @default(true); createdAt DateTime @default(now()) }
+model Certificate { id String @id @default(cuid()); certificateId String @unique; userId String; studentName String; programmeName String; domainName String?; issueDate DateTime?; status CertificateStatus @default(DRAFT); qrData String?; createdAt DateTime @default(now()); user User @relation(fields:[userId],references:[id]) }
+model ProductCategory { id String @id @default(cuid()); name String @unique; products Product[] }
+model Product { id String @id @default(cuid()); name String; description String?; price Int; inventory Int @default(0); imageUrl String?; active Boolean @default(true); categoryId String?; category ProductCategory? @relation(fields:[categoryId],references:[id]); orderItems OrderItem[] }
+model Order { id String @id @default(cuid()); userId String; status String @default("PENDING"); total Int; address String?; createdAt DateTime @default(now()); user User @relation(fields:[userId],references:[id]); items OrderItem[] }
+model OrderItem { id String @id @default(cuid()); orderId String; productId String; quantity Int @default(1); unitPrice Int; order Order @relation(fields:[orderId],references:[id],onDelete:Cascade); product Product @relation(fields:[productId],references:[id]) }
+model TrainingResource { id String @id @default(cuid()); title String; type String; url String; active Boolean @default(true) }
+model Testimonial { id String @id @default(cuid()); quote String; name String; programme String?; domain String?; active Boolean @default(true) }
+model FAQ { id String @id @default(cuid()); category String; question String; answer String; active Boolean @default(true) }
+model Blog { id String @id @default(cuid()); slug String @unique; title String; excerpt String?; content String; published Boolean @default(false); createdAt DateTime @default(now()) }
+model WebsiteSetting { id String @id @default(cuid()); key String @unique; value String }

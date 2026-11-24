@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">NEXUDAYA logo</title>
+  <desc id="desc">A clean NEXUDAYA education mark combining a graduation cap, rising sun, open book and letter N.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#123d80"/>
+      <stop offset="1" stop-color="#1768c2"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb21a"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="238" fill="#f6f9ff"/>
+  <circle cx="256" cy="256" r="226" fill="white" stroke="#dbe9f8" stroke-width="8"/>
+
+  <!-- Rising sun -->
+  <g fill="#f59e0b">
+    <path d="M256 58l15 70h-30z"/>
+    <path d="M176 78l37 64 26-15z"/>
+    <path d="M119 127l66 42 16-25z"/>
+    <path d="M336 78l-37 64-26-15z"/>
+    <path d="M393 127l-66 42-16-25z"/>
+  </g>
+  <circle cx="256" cy="178" r="74" fill="url(#gold)"/>
+
+  <!-- Cap -->
+  <path d="M256 118l92 43-92 43-92-43z" fill="url(#blue)"/>
+  <path d="M256 147l71 33-71 34-71-34z" fill="#0b2e63" opacity=".95"/>
+  <path d="M159 164v52c34 22 160 22 194 0v-52l-97 45z" fill="url(#blue)"/>
+  <path d="M353 160v69" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="353" cy="236" r="10" fill="#f59e0b"/>
+
+  <!-- Letter N -->
+  <path d="M137 272h63l112 145h-66z" fill="url(#blue)"/>
+  <path d="M137 272l58-50v195h-58z" fill="#123d80"/>
+  <path d="M312 222l63 50v145h-63z" fill="#1768c2"/>
+
+  <!-- Orange growth arc -->
+  <path d="M105 368c66 52 174 23 238-43 45-46 80-63 112-55-33-38-75-31-122 5-86 67-166 91-228 93z" fill="url(#gold)"/>
+
+  <!-- Open book -->
+  <path d="M255 348c-45-23-83-24-120-7 0 47 1 72 4 91 44-19 82-16 116 8z" fill="#123d80"/>
+  <path d="M257 348c45-23 83-24 120-7 0 47-1 72-4 91-44-19-82-16-116 8z" fill="#1768c2"/>
+  <path d="M256 350v88" fill="none" stroke="#dbe9f8" stroke-width="7"/>
+  <path d="M151 359c29-9 60-6 88 9M273 368c28-15 59-18 88-9" fill="none" stroke="#f4f8ff" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Small highlight -->
+  <circle cx="256" cy="256" r="10" fill="white" opacity=".5"/>
+</svg>
